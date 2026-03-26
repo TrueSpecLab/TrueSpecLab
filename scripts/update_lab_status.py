@@ -27,39 +27,52 @@ def get_latest_youtube_video():
 
 def get_upcoming_video():
     today = datetime.now()
-    # Updated fallbacks
-    up_title, up_date = "System Telemetry", "TBD"
+    # Fallbacks if no match is found
+    upcoming_title = "Data Analysis"
+    upcoming_date = "TBD"
     
     try:
         response = urllib.request.urlopen(CSV_URL)
         lines = response.read().decode('utf-8').splitlines()
-        reader = csv.DictReader(lines)
         
-        # Since your CSVs have multiple empty rows at the top sometimes,
-        # we skip until we find a row with data.
+        # Use DictReader to handle columns by name
+        # Note: If your CSV has empty lines at the top, we need to find the header
+        start_line = 0
+        for i, line in enumerate(lines):
+            if "CAMPAIGN" in line and "DATE" in line:
+                start_line = i
+                break
+        
+        reader = csv.DictReader(lines[start_line:])
+        
         for row in reader:
-            # Check both possible title columns (Campaign or Title Copy)
-            title = row.get('CAMPAIGN', '').strip() or row.get('TITLE COPY', '').strip()
-            month = row.get('MONTH', '').strip()
-            day = row.get('DAY', '').strip()
+            title = row.get('CAMPAIGN', '').strip()
+            date_str = row.get('DATE', '').strip()
             
-            if title and month and day:
+            if title and date_str:
                 try:
-                    # Construct date (Assumes current year 2026)
-                    # Format: "27 March 2026"
-                    date_str = f"{day} {month} 2026"
-                    c_date = datetime.strptime(date_str, "%d %B %Y")
+                    # Your CSV format is "27-March". We add the year 2026 to parse it.
+                    # We use %B for full month name (March)
+                    clean_date = datetime.strptime(f"{date_str}-2026", "%d-%B-%Y")
                     
-                    if c_date > today:
-                        up_title = title
-                        up_date = c_date.strftime("%b %d").upper()
-                        break # Found the nearest future project!
-                except:
-                    continue
+                    if clean_date > today:
+                        upcoming_title = title
+                        upcoming_date = clean_date.strftime("%b %d").upper()
+                        break # Stop at the first future date found
+                except ValueError:
+                    # Try fallback if date is "March-27" instead of "27-March"
+                    try:
+                        clean_date = datetime.strptime(f"{date_str}-2026", "%B-%d-%Y")
+                        if clean_date > today:
+                            upcoming_title = title
+                            upcoming_date = clean_date.strftime("%b %d").upper()
+                            break
+                    except:
+                        continue
     except Exception as e:
-        print(f"Sync Error: {e}")
+        print(f"CSV Parse Error: {e}")
         
-    return up_title, up_date
+    return upcoming_title, upcoming_date
 
 def update_readme():
     latest_title, latest_link = get_latest_youtube_video()
