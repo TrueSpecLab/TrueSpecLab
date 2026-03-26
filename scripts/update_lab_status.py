@@ -9,7 +9,6 @@ CHANNEL_ID = "UChy7QRfWL2mDN8seUqjD8tw"
 CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTUahX8lrOmnF4JlJYKzuNVSnZZJAC8UoLhjKcmXRcy0MpRHbieAzLIAqoh9oEL1bgLYBVQuNVFsX1V/pub?gid=270845334&single=true&output=csv" 
 README_PATH = "README.md"
 
-# We use string joining to prevent browsers from hiding the tags during copy-paste
 START_TAG = "".join(["<", "!", "--", " RESEARCH-TABLE:START ", "--", ">"])
 END_TAG = "".join(["<", "!", "--", " RESEARCH-TABLE:END ", "--", ">"])
 
@@ -28,30 +27,38 @@ def get_latest_youtube_video():
 
 def get_upcoming_video():
     today = datetime.now()
-    up_title, up_date = "Data Analysis", "TBD"
+    # Updated fallbacks
+    up_title, up_date = "System Telemetry", "TBD"
+    
     try:
         response = urllib.request.urlopen(CSV_URL)
         lines = response.read().decode('utf-8').splitlines()
-        reader = csv.reader(lines)
+        reader = csv.DictReader(lines)
         
-        # Hunt for the header row in your specific Google Sheet
-        camp_idx, date_idx = -1, -1
+        # Since your CSVs have multiple empty rows at the top sometimes,
+        # we skip until we find a row with data.
         for row in reader:
-            if "CAMPAIGN" in row and "DATE" in row:
-                camp_idx, date_idx = row.index("CAMPAIGN"), row.index("DATE")
-                continue
+            # Check both possible title columns (Campaign or Title Copy)
+            title = row.get('CAMPAIGN', '').strip() or row.get('TITLE COPY', '').strip()
+            month = row.get('MONTH', '').strip()
+            day = row.get('DAY', '').strip()
             
-            if camp_idx != -1 and len(row) > max(camp_idx, date_idx):
-                title, d_str = row[camp_idx].strip(), row[date_idx].strip()
-                if title and d_str:
-                    try:
-                        # Parsing "27-March" format
-                        c_date = datetime.strptime(f"{d_str}-2026", "%d-%B-%Y")
-                        if c_date > today:
-                            up_title, up_date = title, c_date.strftime("%b %d").upper()
-                            break
-                    except: continue
-    except: pass
+            if title and month and day:
+                try:
+                    # Construct date (Assumes current year 2026)
+                    # Format: "27 March 2026"
+                    date_str = f"{day} {month} 2026"
+                    c_date = datetime.strptime(date_str, "%d %B %Y")
+                    
+                    if c_date > today:
+                        up_title = title
+                        up_date = c_date.strftime("%b %d").upper()
+                        break # Found the nearest future project!
+                except:
+                    continue
+    except Exception as e:
+        print(f"Sync Error: {e}")
+        
     return up_title, up_date
 
 def update_readme():
@@ -71,20 +78,16 @@ def update_readme():
     except FileNotFoundError:
         content = "### 🔬 Current Research Focus\n\n"
 
-    # If tags are missing, we append them to the end of the focus section
     if START_TAG not in content:
-        # Check if the header exists; if so, append after it.
         header = "### 🔬 Current Research Focus"
         if header in content:
-            before_h, after_h = content.split(header, 1)
-            content = f"{before_h}{header}\n\n{START_TAG}\n{END_TAG}\n{after_h}"
+            parts = content.split(header, 1)
+            content = f"{parts[0]}{header}\n\n{START_TAG}\n{END_TAG}\n{parts[1]}"
         else:
             content += f"\n\n### 🔬 Current Research Focus\n\n{START_TAG}\n{END_TAG}\n"
 
-    # Surgically replace content between tags
     before = content.split(START_TAG)[0]
     after = content.split(END_TAG)[-1]
-    
     final_content = f"{before}{START_TAG}{new_table}{END_TAG}{after}"
 
     with open(README_PATH, 'w', encoding='utf-8') as f:
