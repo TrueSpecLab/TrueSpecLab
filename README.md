@@ -1,36 +1,33 @@
+# 🔍 TRUESPEC LAB | SPECS, VERIFIED.
+
+<div align="left">
+
+<a href="https://youtube.com/@truespeclab">
+  <img src="https://img.shields.io/badge/YouTube-TrueSpec_Lab-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="YouTube Channel">
+</a>
+<br>
+<a href="https://instagram.com/truespeclab">
+  <img src="https://img.shields.io/badge/Instagram-@truespeclab-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram">
+</a>
+<br>
+<a href="https://truespeclab.com">
+  <img src="https://img.shields.io/badge/Data_Vault-truespeclab.com-333333?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Website">
+</a>
+</div>
+
+---
+
+_We provide rigorous, forensic product investigations BECAUSE the internet is filled with misleading noise that paralyzes the modern maker SO THAT our audience can stop second-guessing their gear and start mastering their craft._
+
+> [!NOTE]
+> This repository serves as the open-source data vault for all our laboratory reports.
+
 ### 🔬 Current Research Focus
 
 | Project Category | Hardware Asset / Title | Status |
 | :--- | :--- | :--- |
-| **LATEST REPORT** | [LEGACY BUILDS: Can the ESP32-DevKitM-1 Handle 14 Channels?](https://www.youtube.com/shorts/SvMAriWq_dc) | `PUBLISHED` |
-| **IN TEST BENCH** | Telemetry Analysis | `TARGET: TBD` |
-
-
-| Project Category | Hardware Asset / Title | Status |
-| :--- | :--- | :--- |
-| **LATEST REPORT** | [LEGACY BUILDS: Can the ESP32-DevKitM-1 Handle 14 Channels?](https://www.youtube.com/shorts/SvMAriWq_dc) | `PUBLISHED` |
-| **IN TEST BENCH** | Telemetry Analysis | `TARGET: TBD` |
-| Project Category | Hardware Asset / Title | Status |
-
-| Project Category | Hardware Asset / Title | Status |
-| :--- | :--- | :--- |
-| **LATEST REPORT** | [LEGACY BUILDS: Can the ESP32-DevKitM-1 Handle 14 Channels?](https://www.youtube.com/shorts/SvMAriWq_dc) | `PUBLISHED` |
-| **IN TEST BENCH** | Telemetry Analysis | `TARGET: TBD` |
-| :--- | :--- | :--- |
-
-| Project Category | Hardware Asset / Title | Status |
-| :--- | :--- | :--- |
-| **LATEST REPORT** | [LEGACY BUILDS: Can the ESP32-DevKitM-1 Handle 14 Channels?](https://www.youtube.com/shorts/SvMAriWq_dc) | `PUBLISHED` |
-| **IN TEST BENCH** | Telemetry Analysis | `TARGET: TBD` |
 | **LATEST REPORT** | Fetching... | `LOADING` |
-
-| Project Category | Hardware Asset / Title | Status |
-| :--- | :--- | :--- |
-| **LATEST REPORT** | [LEGACY BUILDS: Can the ESP32-DevKitM-1 Handle 14 Channels?](https://www.youtube.com/shorts/SvMAriWq_dc) | `PUBLISHED` |
-| **IN TEST BENCH** | Telemetry Analysis | `TARGET: TBD` |
 | **IN TEST BENCH** | Fetching... | `LOADING` |
 
-| Project Category | Hardware Asset / Title | Status |
-| :--- | :--- | :--- |
-| **LATEST REPORT** | [LEGACY BUILDS: Can the ESP32-DevKitM-1 Handle 14 Channels?](https://www.youtube.com/shorts/SvMAriWq_dc) | `PUBLISHED` |
-| **IN TEST BENCH** | Telemetry Analysis | `TARGET: TBD` |
+> [!TIP] 
+> Interested in the raw telemetry? Check the /data folder in the corresponding repository for the full .csv logs from these tests.
