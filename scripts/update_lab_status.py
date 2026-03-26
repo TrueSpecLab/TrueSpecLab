@@ -5,8 +5,8 @@ from datetime import datetime
 import io
 
 # --- CONFIGURATION ---
-CHANNEL_ID = "YOUR_CHANNEL_ID" 
-CSV_URL = "PASTE_YOUR_GOOGLE_PUBLISH_LINK_HERE" 
+CHANNEL_ID = "UChy7QRfWL2mDN8seUqjD8tw" 
+CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTUahX8lrOmnF4JlJYKzuNVSnZZJAC8UoLhjKcmXRcy0MpRHbieAzLIAqoh9oEL1bgLYBVQuNVFsX1V/pub?gid=270845334&single=true&output=csv" 
 README_PATH = "README.md"
 
 def get_latest_youtube_video():
@@ -21,7 +21,7 @@ def get_latest_youtube_video():
         link = entry.find(f'{ns}link').attrib['href']
         return title, link
     except:
-        return "Latest Lab Report", "https://youtube.com/truespeclab"
+        return "Latest Lab Report", "https://youtube.com/@truespeclab"
 
 def get_upcoming_video():
     today = datetime.now()
