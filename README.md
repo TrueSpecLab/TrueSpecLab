@@ -14,7 +14,7 @@
   <img src="https://img.shields.io/badge/Data_Vault-truespeclab.com-333333?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Website">
 </a>
 <br>
-<!-- LATEST-VIDEO-BADGE:START --><a href="https://www.youtube.com/shorts/SvMAriWq_dc"><img src="https://img.shields.io/badge/Latest_Report-WATCH_NOW-00C7B7?style=for-the-badge&logo=youtube&logoColor=white" /></a> <br> **Current Test:** LEGACY BUILDS: Can the ESP32-DevKitM-1 Handle 14 Channels?<!-- LATEST-VIDEO-BADGE:END -->
+<!-- LATEST-VIDEO-BADGE:START --> <!-- LATEST-VIDEO-BADGE:END -->
 </div>
 
 ---
