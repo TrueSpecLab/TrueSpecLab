@@ -25,4 +25,5 @@ jobs:
           git config --global user.email "bot@truespeclab.com"
           git add README.md
           git commit -m "⚙️ Telemetry Update: Syncing with Google Drive" || echo "No changes to commit"
-          git push
+          git pull --rebase origin main
+          git push origin main
