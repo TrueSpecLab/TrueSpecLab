@@ -39,4 +39,10 @@ _We provide rigorous, forensic product investigations BECAUSE the internet is fi
 This repository serves as the open-source data vault for all our laboratory reports.
 
 ### 🔬 Current Research Focus
-... [rest of your bio] ...
+
+| Project ID | Hardware Asset | Research Objective | Status |
+| :--- | :--- | :--- | :--- |
+| TRUESPEC-01 | Varta AA Alkaline | Measuring voltage sag recovery in sub-zero environments. | ANALYZING DATA |
+| TRUESPEC-02 | SFF DevBoards | Real-world thermal throttling under sustained 90% CPU load. | IN TEST BENCH |
+| TRUESPEC-03 | ESP32-DevKitM-1 | Assessing signal-to-noise ratio across 14 simultaneous channels. | PUBLISHED |
+
