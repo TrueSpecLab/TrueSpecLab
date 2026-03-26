@@ -30,52 +30,46 @@ def get_upcoming_video():
     up_title, up_date = "System Telemetry", "TBD"
     
     try:
+        print(f"DEBUG: Fetching CSV from {CSV_URL[:50]}...")
         response = urllib.request.urlopen(CSV_URL)
         content = response.read().decode('utf-8')
         lines = content.splitlines()
         
-        # We use a standard CSV reader first to find the column positions
+        # DEBUG: Print the first 3 lines of the CSV to the GitHub Action Log
+        print("DEBUG: CSV Header Check:")
+        for line in lines[:5]: print(f"  > {line}")
+
         reader = list(csv.reader(lines))
+        camp_idx, date_idx = -1, -1
         
-        camp_idx = -1
-        date_idx = -1
-        
-        # Find header row and indices
         for i, row in enumerate(reader):
-            row_str = [str(cell).upper() for cell in row]
-            if "CAMPAIGN" in row_str and "DATE" in row_str:
-                camp_idx = row_str.index("CAMPAIGN")
-                date_idx = row_str.index("DATE")
+            row_upper = [str(c).upper().strip() for c in row]
+            if "CAMPAIGN" in row_upper and "DATE" in row_upper:
+                camp_idx = row_upper.index("CAMPAIGN")
+                date_idx = row_upper.index("DATE")
+                print(f"DEBUG: Found Headers at row {i}. Campaign Col: {camp_idx}, Date Col: {date_idx}")
                 data_rows = reader[i+1:]
                 break
         
         if camp_idx != -1:
             for row in data_rows:
                 if len(row) <= max(camp_idx, date_idx): continue
-                
                 title = row[camp_idx].strip()
                 date_val = row[date_idx].strip()
                 
                 if not title or not date_val: continue
                 
-                # Attempt to parse multiple date formats
-                parsed_date = None
-                formats = ["%d-%B-%Y", "%m/%d/%Y", "%B-%d-%Y", "%d/%m/%Y"]
-                
-                for fmt in formats:
+                # Check for "27-March" or "27-Mar"
+                for fmt in ["%d-%B-%Y", "%d-%b-%Y", "%m/%d/%Y"]:
                     try:
-                        # If the year isn't in the string, add 2026
                         test_str = date_val if "2026" in date_val else f"{date_val}-2026"
                         parsed_date = datetime.strptime(test_str, fmt)
-                        break
+                        if parsed_date > today:
+                            print(f"DEBUG: Found Match! {title} on {parsed_date}")
+                            return title, parsed_date.strftime("%b %d").upper()
                     except: continue
-                
-                if parsed_date and parsed_date > today:
-                    up_title = title
-                    up_date = parsed_date.strftime("%b %d").upper()
-                    break
     except Exception as e:
-        print(f"Fetch error: {e}")
+        print(f"DEBUG: ERROR: {e}")
         
     return up_title, up_date
 
@@ -93,7 +87,6 @@ def update_readme():
     with open(README_PATH, 'r', encoding='utf-8') as f:
         content = f.read()
 
-    # Rebuild file
     before = content.split(START_TAG)[0]
     after = content.split(END_TAG)[-1]
     final_content = f"{before}{START_TAG}{new_table}{END_TAG}{after}"
