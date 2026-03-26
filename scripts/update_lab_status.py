@@ -27,52 +27,57 @@ def get_latest_youtube_video():
 
 def get_upcoming_video():
     today = datetime.now()
-    # Fallbacks if no match is found
-    upcoming_title = "Data Analysis"
-    upcoming_date = "TBD"
+    up_title, up_date = "System Telemetry", "TBD"
     
     try:
         response = urllib.request.urlopen(CSV_URL)
-        lines = response.read().decode('utf-8').splitlines()
+        content = response.read().decode('utf-8')
+        lines = content.splitlines()
         
-        # Use DictReader to handle columns by name
-        # Note: If your CSV has empty lines at the top, we need to find the header
-        start_line = 0
-        for i, line in enumerate(lines):
-            if "CAMPAIGN" in line and "DATE" in line:
-                start_line = i
+        # We use a standard CSV reader first to find the column positions
+        reader = list(csv.reader(lines))
+        
+        camp_idx = -1
+        date_idx = -1
+        
+        # Find header row and indices
+        for i, row in enumerate(reader):
+            row_str = [str(cell).upper() for cell in row]
+            if "CAMPAIGN" in row_str and "DATE" in row_str:
+                camp_idx = row_str.index("CAMPAIGN")
+                date_idx = row_str.index("DATE")
+                data_rows = reader[i+1:]
                 break
         
-        reader = csv.DictReader(lines[start_line:])
-        
-        for row in reader:
-            title = row.get('CAMPAIGN', '').strip()
-            date_str = row.get('DATE', '').strip()
-            
-            if title and date_str:
-                try:
-                    # Your CSV format is "27-March". We add the year 2026 to parse it.
-                    # We use %B for full month name (March)
-                    clean_date = datetime.strptime(f"{date_str}-2026", "%d-%B-%Y")
-                    
-                    if clean_date > today:
-                        upcoming_title = title
-                        upcoming_date = clean_date.strftime("%b %d").upper()
-                        break # Stop at the first future date found
-                except ValueError:
-                    # Try fallback if date is "March-27" instead of "27-March"
+        if camp_idx != -1:
+            for row in data_rows:
+                if len(row) <= max(camp_idx, date_idx): continue
+                
+                title = row[camp_idx].strip()
+                date_val = row[date_idx].strip()
+                
+                if not title or not date_val: continue
+                
+                # Attempt to parse multiple date formats
+                parsed_date = None
+                formats = ["%d-%B-%Y", "%m/%d/%Y", "%B-%d-%Y"]
+                
+                for fmt in formats:
                     try:
-                        clean_date = datetime.strptime(f"{date_str}-2026", "%B-%d-%Y")
-                        if clean_date > today:
-                            upcoming_title = title
-                            upcoming_date = clean_date.strftime("%b %d").upper()
-                            break
-                    except:
-                        continue
+                        # If the year isn't in the string, add 2026
+                        test_str = date_val if "2026" in date_val else f"{date_val}-2026"
+                        parsed_date = datetime.strptime(test_str, fmt)
+                        break
+                    except: continue
+                
+                if parsed_date and parsed_date > today:
+                    up_title = title
+                    up_date = parsed_date.strftime("%b %d").upper()
+                    break
     except Exception as e:
-        print(f"CSV Parse Error: {e}")
+        print(f"Fetch error: {e}")
         
-    return upcoming_title, upcoming_date
+    return up_title, up_date
 
 def update_readme():
     latest_title, latest_link = get_latest_youtube_video()
@@ -85,20 +90,10 @@ def update_readme():
         f"| **IN TEST BENCH** | {up_title} | `TARGET: {up_date}` |\n"
     )
 
-    try:
-        with open(README_PATH, 'r', encoding='utf-8') as f:
-            content = f.read()
-    except FileNotFoundError:
-        content = "### 🔬 Current Research Focus\n\n"
+    with open(README_PATH, 'r', encoding='utf-8') as f:
+        content = f.read()
 
-    if START_TAG not in content:
-        header = "### 🔬 Current Research Focus"
-        if header in content:
-            parts = content.split(header, 1)
-            content = f"{parts[0]}{header}\n\n{START_TAG}\n{END_TAG}\n{parts[1]}"
-        else:
-            content += f"\n\n### 🔬 Current Research Focus\n\n{START_TAG}\n{END_TAG}\n"
-
+    # Rebuild file
     before = content.split(START_TAG)[0]
     after = content.split(END_TAG)[-1]
     final_content = f"{before}{START_TAG}{new_table}{END_TAG}{after}"
