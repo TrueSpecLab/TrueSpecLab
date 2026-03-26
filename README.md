@@ -29,7 +29,7 @@ Here are some ideas to get you started:
   <img src="https://img.shields.io/badge/Data_Vault-truespeclab.com-333333?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Website">
 </a>
 <br>
-
+<!-- LATEST-VIDEO-BADGE:START --> <!-- LATEST-VIDEO-BADGE:END -->
 </div>
 
 ---
