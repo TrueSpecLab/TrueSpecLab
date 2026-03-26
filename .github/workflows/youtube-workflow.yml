@@ -1,18 +1,27 @@
 name: Latest YouTube Videos Workflow
 on:
   schedule:
-    # Runs every 12 hours
     - cron: '0 */12 * * *'
-  workflow_dispatch: # Allows you to run this manually for testing
+  workflow_dispatch:
 
 jobs:
   update-readme-with-youtube:
-    name: Update this repo's README with latest videos from YouTube
+    name: Update README with YouTube
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Pull in YouTube videos
+      - uses: actions/checkout@v3
+
+      # STEP 1: Create the Badge (New!)
+      - name: Update Latest Video Badge
+        uses: gautamkrishnar/blog-post-workflow@v1
+        with:
+          comment_tag_name: "LATEST-VIDEO-BADGE"
+          feed_list: "https://www.youtube.com/feeds/videos.xml?channel_id=UChy7QRfWL2mDN8seUqjD8tw"
+          max_post_count: 1
+          template: '<a href="$url"><img src="https://img.shields.io/badge/Latest_Report-WATCH_NOW-00C7B7?style=for-the-badge&logo=youtube&logoColor=white" /></a> <br> **Current Test:** $title'
+
+      # STEP 2: Update the List (Your existing step)
+      - name: Update Video List
         uses: gautamkrishnar/blog-post-workflow@v1
         with:
           comment_tag_name: "YOUTUBE-VIDEOS-LIST"
