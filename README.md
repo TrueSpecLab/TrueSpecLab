@@ -49,7 +49,7 @@ _We provide rigorous, forensic product investigations BECAUSE the internet is fi
 
 ### 📺 Latest Lab Reports
 
-"comment tags"
+<!-- YOUTUBE-VIDEOS-LIST:START --> <!-- YOUTUBE-VIDEOS-LIST:END -->
 
 > [!TIP] 
 > Interested in the raw telemetry? Check the /data folder in the corresponding repository for the full .csv logs from these tests.
