@@ -49,7 +49,13 @@ _We provide rigorous, forensic product investigations BECAUSE the internet is fi
 
 ### 📺 Latest Lab Reports
 
-<!-- YOUTUBE-VIDEOS-LIST:START --> <!-- YOUTUBE-VIDEOS-LIST:END -->
+<!-- YOUTUBE-VIDEOS-LIST:START -->
+- [LEGACY BUILDS: Can the ESP32-DevKitM-1 Handle 14 Channels?](https://www.youtube.com/shorts/SvMAriWq_dc)
+- [72-Hour Deep Freeze: Measuring The Voltage Sag Margin](https://www.youtube.com/watch?v=gjYDQ55KpUY)
+- [Is Your Kids Bunk Bed SAFE? #woodworking #diy #wood](https://www.youtube.com/shorts/WKrKQXlpk5M)
+- [Cool Bunk Bed You Wish You Had As A Kid](https://www.youtube.com/shorts/whHvTUT6WhA)
+- [Kids Bunk Bed: Another Crucial Component #woodworking #diy](https://www.youtube.com/shorts/MnBrT1lVvGA)
+<!-- YOUTUBE-VIDEOS-LIST:END -->
 
 > [!TIP] 
 > Interested in the raw telemetry? Check the /data folder in the corresponding repository for the full .csv logs from these tests.
