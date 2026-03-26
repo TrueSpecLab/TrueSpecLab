@@ -29,7 +29,9 @@ Here are some ideas to get you started:
   <img src="https://img.shields.io/badge/Data_Vault-truespeclab.com-333333?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Website">
 </a>
 <br>
-<img src="https://img.shields.io/badge/Lab_Status-Testing_Espressif_ESP32_DevKitM_1-008080?style=for-the-badge" alt="Current Status">
+<a href="https://www.youtube.com/channel/UChy7QRfWL2mDN8seUqjD8tw/videos">
+  <img src="https://img.shields.io/badge/dynamic/json?style=for-the-badge&label=Latest_Report&query=$.title&url=https://decapi.me/youtube/latest_video?user=TrueSpecLab&color=00C7B7" alt="Latest Video">
+</a>
 </div>
 
 ---
