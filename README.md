@@ -29,9 +29,7 @@ Here are some ideas to get you started:
   <img src="https://img.shields.io/badge/Data_Vault-truespeclab.com-333333?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Website">
 </a>
 <br>
-<a href="https://www.youtube.com/channel/UChy7QRfWL2mDN8seUqjD8tw/videos">
-  <img src="https://img.shields.io/badge/Latest_Report-View_on_YouTube-00C7B7?style=for-the-badge&logo=youtube&logoColor=white" alt="Latest Video">
-</a>
+
 </div>
 
 ---
