@@ -7,11 +7,13 @@ on:
 jobs:
   update-readme:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # Crucial: Gives the Bot permission to overwrite
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0 # Gets all history so we can merge properly
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -26,7 +28,10 @@ jobs:
           git config --global user.name "TrueSpec-Bot"
           git config --global user.email "bot@truespeclab.com"
           git add README.md
-          # Pull latest changes from GitHub to prevent "failed to push" errors
-          git pull --rebase origin main 
-          git commit -m "⚙️ Telemetry Update: Syncing with Google Drive" || echo "No changes to commit"
-          git push origin main
+          
+          # If there are no changes, exit early
+          git diff --quiet && git diff --staged --quiet || (
+            git commit -m "⚙️ Telemetry Update: Syncing with Google Drive"
+            # The 'force' push ensures we overwrite any version conflicts
+            git push origin main --force
+          )
