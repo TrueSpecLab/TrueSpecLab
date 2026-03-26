@@ -47,6 +47,9 @@ _We provide rigorous, forensic product investigations BECAUSE the internet is fi
 |TRUESPEC-02|SFF DevBoards|Real-world thermal throttling under sustained 90% CPU load.|`IN TEST BENCH`|
 |TRUESPEC-03|ESP32-DevKitM-1|Assessing signal-to-noise ratio across 14 simultaneous channels.|`PUBLISHED`|
 
+> [!TIP] 
+> Interested in the raw telemetry? Check the /data folder in the corresponding repository for the full .csv logs from these tests.
+
 ### 📺 Latest Lab Reports
 
 <!-- YOUTUBE-VIDEOS-LIST:START -->
@@ -56,6 +59,3 @@ _We provide rigorous, forensic product investigations BECAUSE the internet is fi
 - [Cool Bunk Bed You Wish You Had As A Kid](https://www.youtube.com/shorts/whHvTUT6WhA)
 - [Kids Bunk Bed: Another Crucial Component #woodworking #diy](https://www.youtube.com/shorts/MnBrT1lVvGA)
 <!-- YOUTUBE-VIDEOS-LIST:END -->
-
-> [!TIP] 
-> Interested in the raw telemetry? Check the /data folder in the corresponding repository for the full .csv logs from these tests.
