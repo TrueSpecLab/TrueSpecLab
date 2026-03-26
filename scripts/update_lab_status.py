@@ -2,12 +2,11 @@ import csv
 import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime
-import re
 import io
 
 # --- CONFIGURATION ---
 CHANNEL_ID = "UChy7QRfWL2mDN8seUqjD8tw" 
-CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTUahX8lrOmnF4JlJYKzuNVSnZZJAC8UoLhjKcmXRcy0MpRHbieAzLIAqoh9oEL1bgLYBVQuNVFsX1V/pub?gid=270845334&single=true&output=csv" # <--- Put your published CSV link here
+CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTUahX8lrOmnF4JlJYKzuNVSnZZJAC8UoLhjKcmXRcy0MpRHbieAzLIAqoh9oEL1bgLYBVQuNVFsX1V/pub?gid=270845334&single=true&output=csv" 
 README_PATH = "README.md"
 
 def get_latest_youtube_video():
@@ -16,79 +15,87 @@ def get_latest_youtube_video():
         req = urllib.request.urlopen(url)
         xml_data = req.read()
         root = ET.fromstring(xml_data)
-        
         ns = '{http://www.w3.org/2005/Atom}'
         entry = root.find(f'{ns}entry')
         title = entry.find(f'{ns}title').text
         link = entry.find(f'{ns}link').attrib['href']
         return title, link
-    except Exception as e:
-        return "Latest Video Data Unavailable", "https://youtube.com/@truespeclab"
+    except:
+        return "Latest Lab Report", "https://youtube.com/@truespeclab"
 
 def get_upcoming_video():
     today = datetime.now()
-    current_year = today.year
-    upcoming_title = "Data Analysis in Progress"
-    upcoming_date_str = "TBD"
+    upcoming_title = "Telemetry Analysis"
+    upcoming_date = "TBD"
 
     try:
-        # Fetch the CSV directly from Google's servers
-        req = urllib.request.urlopen(CSV_URL)
-        csv_data = req.read().decode('utf-8')
-        lines = csv_data.splitlines()
+        response = urllib.request.urlopen(CSV_URL)
+        content = response.read().decode('utf-8')
+        # Skip the metadata rows in your Google Sheet (Year: 2026, etc.)
+        lines = content.splitlines()
         
-        # Dynamically find the header row
-        header_idx = 0
+        # Find the actual header row starting with # or CAMPAIGN
+        start_row = 0
         for i, line in enumerate(lines):
-            if "TITLE COPY" in line or "CAMPAIGN" in line:
-                header_idx = i
+            if "CAMPAIGN" in line and "DATE" in line:
+                start_row = i
                 break
-                
-        reader = csv.DictReader(lines[header_idx:])
         
+        reader = csv.DictReader(lines[start_row:])
         for row in reader:
-            month = row.get('MONTH', '').strip()
-            day = row.get('DAY', '').strip()
-            # Try to grab TITLE COPY, fallback to CAMPAIGN if that's where you put it
-            title = row.get('TITLE COPY', '').strip()
-            if not title:
-                title = row.get('CAMPAIGN', '').strip()
+            raw_date = row.get('DATE', '').strip()
+            title = row.get('CAMPAIGN', '').strip()
             
-            if month and day and title:
+            if raw_date and title:
+                # Format in your CSV is "27-March" or "10-April"
                 try:
-                    date_obj = datetime.strptime(f"{current_year} {month} {day}", "%Y %B %d")
-                    if date_obj > today:
+                    # Append current year to the string for parsing
+                    clean_date = datetime.strptime(f"{raw_date}-2026", "%d-%B-%Y")
+                    if clean_date > today:
                         upcoming_title = title
-                        upcoming_date_str = date_obj.strftime("%b %d")
+                        upcoming_date = clean_date.strftime("%b %d").upper()
                         break
-                except ValueError:
+                except:
                     continue
-    except Exception as e:
-        print(f"Failed to fetch or parse CSV from Google: {e}")
-                
-    return upcoming_title, upcoming_date_str
+    except:
+        pass
+    return upcoming_title, upcoming_date
 
 def update_readme():
+    start_tag = ""
+    end_tag = ""
+    
     latest_title, latest_link = get_latest_youtube_video()
-    upcoming_title, upcoming_date_str = get_upcoming_video()
+    up_title, up_date = get_upcoming_video()
 
-    md_table = f"""| Project Category | Hardware Asset / Title | Status |
+    new_table = f"""
+| Project Category | Hardware Asset / Title | Status |
 | :--- | :--- | :--- |
 | **LATEST REPORT** | [{latest_title}]({latest_link}) | `PUBLISHED` |
-| **IN TEST BENCH** | {upcoming_title} | `TARGET: {upcoming_date_str.upper()}` |"""
+| **IN TEST BENCH** | {up_title} | `TARGET: {up_date}` |
+"""
 
     with open(README_PATH, 'r', encoding='utf-8') as f:
-        content = f.read()
+        lines = f.readlines()
 
-    new_content = re.sub(
-        r'().*?()',
-        r'\1\n' + md_table + r'\n\2',
-        content,
-        flags=re.DOTALL
-    )
+    new_lines = []
+    skip = False
+    
+    # Logic: Copy all lines, but when we hit START, insert the table and skip 
+    # everything until we hit END.
+    for line in lines:
+        if start_tag in line:
+            new_lines.append(line)
+            new_lines.append(new_table)
+            skip = True
+        elif end_tag in line:
+            new_lines.append(line)
+            skip = False
+        elif not skip:
+            new_lines.append(line)
 
     with open(README_PATH, 'w', encoding='utf-8') as f:
-        f.write(new_content)
+        f.writelines(new_lines)
 
 if __name__ == "__main__":
     update_readme()
