@@ -30,7 +30,7 @@ _We provide rigorous, forensic product investigations BECAUSE the internet is fi
 | Project Category | Hardware Asset / Title | Status |
 | :--- | :--- | :--- |
 | **LATEST REPORT** | [LEGACY BUILDS: Can the ESP32-DevKitM-1 Handle 14 Channels?](https://www.youtube.com/shorts/SvMAriWq_dc) | `PUBLISHED` |
-| **IN TEST BENCH** | Data Analysis | `TARGET: TBD` |
+| **IN TEST BENCH** | System Telemetry | `TARGET: TBD` |
 <!-- RESEARCH-TABLE:END -->
 
 
