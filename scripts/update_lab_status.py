@@ -60,7 +60,7 @@ def get_upcoming_video():
                 
                 # Attempt to parse multiple date formats
                 parsed_date = None
-                formats = ["%d-%B-%Y", "%m/%d/%Y", "%B-%d-%Y"]
+                formats = ["%d-%B-%Y", "%m/%d/%Y", "%B-%d-%Y", "%d/%m/%Y"]
                 
                 for fmt in formats:
                     try:
