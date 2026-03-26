@@ -30,46 +30,53 @@ def get_upcoming_video():
     up_title, up_date = "System Telemetry", "TBD"
     
     try:
-        print(f"DEBUG: Fetching CSV from {CSV_URL[:50]}...")
         response = urllib.request.urlopen(CSV_URL)
         content = response.read().decode('utf-8')
         lines = content.splitlines()
-        
-        # DEBUG: Print the first 3 lines of the CSV to the GitHub Action Log
-        print("DEBUG: CSV Header Check:")
-        for line in lines[:5]: print(f"  > {line}")
-
         reader = list(csv.reader(lines))
-        camp_idx, date_idx = -1, -1
+        
+        # New Column Mapping based on your DEBUG logs
+        month_idx = -1
+        day_idx = -1
+        title_idx = -1
         
         for i, row in enumerate(reader):
             row_upper = [str(c).upper().strip() for c in row]
-            if "CAMPAIGN" in row_upper and "DATE" in row_upper:
-                camp_idx = row_upper.index("CAMPAIGN")
-                date_idx = row_upper.index("DATE")
-                print(f"DEBUG: Found Headers at row {i}. Campaign Col: {camp_idx}, Date Col: {date_idx}")
+            # Match the headers from your log
+            if "MONTH" in row_upper and "DAY" in row_upper:
+                month_idx = row_upper.index("MONTH")
+                day_idx = row_upper.index("DAY")
+                # Look for TITLE COPY or CAMPAIGN
+                if "TITLE COPY" in row_upper:
+                    title_idx = row_upper.index("TITLE COPY")
+                elif "CAMPAIGN" in row_upper:
+                    title_idx = row_upper.index("CAMPAIGN")
+                
                 data_rows = reader[i+1:]
                 break
         
-        if camp_idx != -1:
+        if month_idx != -1 and day_idx != -1:
             for row in data_rows:
-                if len(row) <= max(camp_idx, date_idx): continue
-                title = row[camp_idx].strip()
-                date_val = row[date_idx].strip()
+                if len(row) <= max(month_idx, day_idx, title_idx): continue
                 
-                if not title or not date_val: continue
+                month_val = row[month_idx].strip()
+                day_val = row[day_idx].strip()
+                title_val = row[title_idx].strip()
                 
-                # Check for "27-March" or "27-Mar"
-                for fmt in ["%d-%B-%Y", "%d-%b-%Y", "%m/%d/%Y"]:
-                    try:
-                        test_str = date_val if "2026" in date_val else f"{date_val}-2026"
-                        parsed_date = datetime.strptime(test_str, fmt)
-                        if parsed_date > today:
-                            print(f"DEBUG: Found Match! {title} on {parsed_date}")
-                            return title, parsed_date.strftime("%b %d").upper()
-                    except: continue
+                if not month_val or not day_val or not title_val: continue
+                if title_val == "0": continue # Skip placeholder rows
+
+                try:
+                    # Construct date: e.g., "March 27 2026"
+                    date_str = f"{day_val} {month_val} 2026"
+                    parsed_date = datetime.strptime(date_str, "%d %B %Y")
+                    
+                    if parsed_date > today:
+                        return title_val, parsed_date.strftime("%b %d").upper()
+                except:
+                    continue
     except Exception as e:
-        print(f"DEBUG: ERROR: {e}")
+        print(f"DEBUG Error: {e}")
         
     return up_title, up_date
 
