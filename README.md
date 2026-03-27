@@ -10,7 +10,7 @@
 </a>
 <br>
 <a href="https://truespeclab.com">
-  <img src="https://img.shields.io/badge/Data_Vault-truespeclab.com-008080?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Website">
+  <img src="https://img.shields.io/badge/Data_Vault-truespeclab.com-3A3F45?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Website">
 </a>
 <br>
 <a href="https://github.com/TrueSpecLab/telemetry-vault/tree/main/data">
