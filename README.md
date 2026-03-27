@@ -14,7 +14,7 @@
 </a>
 <br>
 <!-- LATEST-VIDEO-BADGE:START --> <!-- LATEST-VIDEO-BADGE:END -->
-<a href="https://github.com/TrueSpecLab/TrueSpecLab/tree/main/data">
+<a href="/TrueSpecLab/TrueSpecLab/tree/main/data">
   <img src="https://img.shields.io/badge/Lab_Data-Archive-E06C1F?style=for-the-badge&logo=github&logoColor=white" alt="Lab Data Archive">
 </a>
 </div>
