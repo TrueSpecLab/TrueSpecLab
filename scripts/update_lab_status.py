@@ -5,12 +5,9 @@ from datetime import datetime
 import io
 
 # --- CONFIGURATION ---
-CHANNEL_ID = "UChy7QRfWL2mDN8seUqjD8tw" 
-CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTUahX8lrOmnF4JlJYKzuNVSnZZJAC8UoLhjKcmXRcy0MpRHbieAzLIAqoh9oEL1bgLYBVQuNVFsX1V/pub?gid=270845334&single=true&output=csv" 
+CHANNEL_ID = "UC_Your_Actual_ID_Here" 
+CSV_URL = "YOUR_FULL_GOOGLE_CSV_LINK_HERE" 
 README_PATH = "README.md"
-
-START_TAG = "".join(["<", "!", "--", " RESEARCH-TABLE:START ", "--", ">"])
-END_TAG = "".join(["<", "!", "--", " RESEARCH-TABLE:END ", "--", ">"])
 
 def get_latest_youtube_video():
     try:
@@ -35,55 +32,41 @@ def get_upcoming_video():
         lines = content.splitlines()
         reader = list(csv.reader(lines))
         
-        # New Column Mapping based on your DEBUG logs
-        month_idx = -1
-        day_idx = -1
-        title_idx = -1
+        month_idx, day_idx, title_idx = -1, -1, -1
         
+        # Find headers: MONTH, DAY, and TITLE COPY
         for i, row in enumerate(reader):
             row_upper = [str(c).upper().strip() for c in row]
-            # Match the headers from your log
             if "MONTH" in row_upper and "DAY" in row_upper:
                 month_idx = row_upper.index("MONTH")
                 day_idx = row_upper.index("DAY")
-                # Look for TITLE COPY or CAMPAIGN
-                if "TITLE COPY" in row_upper:
-                    title_idx = row_upper.index("TITLE COPY")
-                elif "CAMPAIGN" in row_upper:
-                    title_idx = row_upper.index("CAMPAIGN")
-                
+                title_idx = row_upper.index("TITLE COPY") if "TITLE COPY" in row_upper else row_upper.index("TITLE")
                 data_rows = reader[i+1:]
                 break
         
-        if month_idx != -1 and day_idx != -1:
+        if month_idx != -1:
             for row in data_rows:
                 if len(row) <= max(month_idx, day_idx, title_idx): continue
+                m, d, t = row[month_idx].strip(), row[day_idx].strip(), row[title_idx].strip()
                 
-                month_val = row[month_idx].strip()
-                day_val = row[day_idx].strip()
-                title_val = row[title_idx].strip()
-                
-                if not month_val or not day_val or not title_val: continue
-                if title_val == "0": continue # Skip placeholder rows
+                if not m or not d or t == "0": continue
 
                 try:
-                    # Construct date: e.g., "March 27 2026"
-                    date_str = f"{day_val} {month_val} 2026"
+                    # Construct date for 2026
+                    date_str = f"{d} {m} 2026"
                     parsed_date = datetime.strptime(date_str, "%d %B %Y")
                     
                     if parsed_date > today:
-                        return title_val, parsed_date.strftime("%b %d").upper()
-                except:
-                    continue
-    except Exception as e:
-        print(f"DEBUG Error: {e}")
-        
+                        return t, parsed_date.strftime("%b %d").upper()
+                except: continue
+    except: pass
     return up_title, up_date
 
 def update_readme():
     latest_title, latest_link = get_latest_youtube_video()
     up_title, up_date = get_upcoming_video()
 
+    # The Clean Table
     new_table = (
         f"\n"
         f"| Research Area | Hardware / Device under Test | Status |\n"
@@ -96,23 +79,14 @@ def update_readme():
     with open(README_PATH, 'r', encoding='utf-8') as f:
         content = f.read()
 
-    # THE NUCLEAR OPTION: 
-    # Find the "Research Focus" header and delete EVERYTHING after it.
     header_marker = "### 🔬 Current Research Focus"
     
     if header_marker in content:
-        # Keep everything up to the tip/header
         keep_part = content.split(header_marker)[0] + header_marker
-        
-        # Add the fixed tip and the fresh table
         tip = "\n\n> [!TIP] \n> Interested in the raw telemetry? Check the [/data](https://github.com/TrueSpecLab/telemetry-vault/tree/main/data) folder in the corresponding repository for the full .csv logs from these tests.\n\n"
         
-        final_content = keep_part + tip + new_table
-        
         with open(README_PATH, 'w', encoding='utf-8') as f:
-            f.write(final_content.strip() + "\n")
-    else:
-        print("DEBUG ERROR: Header marker not found. Script aborted to save file integrity.")
+            f.write(keep_part + tip + new_table + "\n")
 
 if __name__ == "__main__":
     update_readme()
