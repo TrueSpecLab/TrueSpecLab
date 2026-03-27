@@ -96,7 +96,7 @@ def update_readme():
 
     before = content.split(START_TAG)[0]
     after = content.split(END_TAG)[-1]
-    final_content = f"{before}{START_TAG}{new_table}{END_TAG}{after}"
+    final_content = f"{before}{START_TAG}\n{new_table}\n{END_TAG}\n{after}"
 
     with open(README_PATH, 'w', encoding='utf-8') as f:
         f.write(final_content.strip() + "\n")
