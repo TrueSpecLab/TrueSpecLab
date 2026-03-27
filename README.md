@@ -28,6 +28,12 @@
 
 ### 🔬 Current Research Focus
 
-
 > [!TIP] 
 > Interested in the raw telemetry? Check the [/data](https://github.com/TrueSpecLab/telemetry-vault/tree/main/data) folder in the corresponding repository for the full .csv logs from these tests.
+
+
+| Research Area | Hardware / Device under Test | Status |
+| :--- | :--- | :--- |
+| **LATEST REPORT** | [Latest Lab Report](https://youtube.com/@truespeclab) | `PUBLISHED` |
+| **IN TEST BENCH** | System Telemetry | `TARGET: TBD` |
+
