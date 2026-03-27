@@ -3,6 +3,7 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime
 import io
+import re
 
 # --- CONFIGURATION ---
 CHANNEL_ID = "UChy7QRfWL2mDN8seUqjD8tw" 
@@ -85,7 +86,7 @@ def update_readme():
     up_title, up_date = get_upcoming_video()
 
     new_table = (
-        f"\n| Research Area | Hardware / Device under Test | Status |\n"
+        f"| Research Area | Hardware / Device under Test | Status |\n"
         f"| :--- | :--- | :--- |\n"
         f"| **LATEST REPORT** | [{latest_title}]({latest_link}) | `PUBLISHED` |\n"
         f"| **IN TEST BENCH** | {up_title} | `TARGET: {up_date}` |\n"
@@ -94,19 +95,22 @@ def update_readme():
     with open(README_PATH, 'r', encoding='utf-8') as f:
         content = f.read()
 
-    # THE SAFETY LATCH: Only update if BOTH tags are found
-    if START_TAG in content and END_TAG in content:
-        # split(...)[0] gets everything BEFORE the first start tag
-        before = content.split(START_TAG)[0] 
-        # split(...)[1] gets everything AFTER the first end tag
-        after = content.split(END_TAG)[1] 
-        
-        final_content = f"{before}{START_TAG}{new_table}\n{END_TAG}{after}"
+    # This Pattern finds the START tag, everything in between, and the END tag
+    pattern = r"()(.*?)()"
+    
+    # Check if the tags exist using the pattern
+    if re.search(pattern, content, re.DOTALL):
+        print("DEBUG: Found tags, injecting table...")
+        # Replacement string keeps the tags but swaps the content in between
+        replacement = rf"\1\n{new_table}\n\3"
+        final_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
         
         with open(README_PATH, 'w', encoding='utf-8') as f:
             f.write(final_content.strip() + "\n")
     else:
-        print("DEBUG ERROR: Tags missing! Aborting update to prevent duplicates.")
+        print("DEBUG ERROR: Could not find RESEARCH-TABLE tags in README.md")
+        # Let's print the first 100 chars of the README to see what's going on
+        print(f"DEBUG: README Start: {content[:100]}")
 
 if __name__ == "__main__":
     update_readme()
