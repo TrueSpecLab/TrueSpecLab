@@ -21,7 +21,7 @@
 
 ---
 
-_We provide rigorous, forensic product investigations BECAUSE the internet is filled with misleading noise that paralyzes the modern maker SO THAT our audience can stop second-guessing their gear and start mastering their craft._
+> We provide rigorous, forensic product investigations BECAUSE the internet is filled with misleading noise that paralyzes the modern maker SO THAT our audience can stop second-guessing their gear and start mastering their craft.
 
 > [!NOTE]
 > This repository serves as the open-source data vault for all our laboratory reports.
