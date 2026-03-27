@@ -1,7 +1,3 @@
-<div>
-<a href="https://github.com/TrueSpecLab/telemetry-vault/tree/main/data">
-  <img src="https://img.shields.io/badge/Lab_Data-Archive-E06C1F?style=for-the-badge&logo=github&logoColor=white" alt="Lab Data Archive">
-</a>
 <div align="left">
 <a href="https://youtube.com/@truespeclab">
   <img src="https://img.shields.io/badge/YouTube-TrueSpec_Lab-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="YouTube Channel">
