@@ -27,6 +27,11 @@
 > This repository serves as the open-source data vault for all our laboratory reports.
 
 ### 🔬 Current Research Focus
+| Research Area | Hardware / Device under Test | Status |
+| :--- | :--- | :--- |
+| **LATEST REPORT** | [LEGACY BUILDS: Can the ESP32-DevKitM-1 Handle 14 Channels?](https://www.youtube.com/shorts/SvMAriWq_dc) | `PUBLISHED` |
+| **IN TEST BENCH** | LEGACY BUILDS: ItsyBitsy M4 Express: 14 Channels in a 36mm Footprint? | `TARGET: APR 10` |
+
 
 > [!TIP] 
 > Interested in the raw telemetry? Check the [/data](https://github.com/TrueSpecLab/telemetry-vault/tree/main/data) folder in the corresponding repository for the full .csv logs from these tests.
