@@ -84,22 +84,36 @@ def update_readme():
     latest_title, latest_link = get_latest_youtube_video()
     up_title, up_date = get_upcoming_video()
 
-    new_table = (
-        f"\n| Project Category | Hardware Asset / Title | Status |\n"
+    # Define the fresh table with tags included
+    new_table_block = (
+        f"\n"
+        f"| Research Area | Hardware / Device under Test | Status |\n"
         f"| :--- | :--- | :--- |\n"
         f"| **LATEST REPORT** | [{latest_title}]({latest_link}) | `PUBLISHED` |\n"
         f"| **IN TEST BENCH** | {up_title} | `TARGET: {up_date}` |\n"
+        f""
     )
 
     with open(README_PATH, 'r', encoding='utf-8') as f:
         content = f.read()
 
-    before = content.split(START_TAG)[0]
-    after = content.split(END_TAG)[-1]
-    final_content = f"{before}{START_TAG}{new_table}{END_TAG}{after}"
-
-    with open(README_PATH, 'w', encoding='utf-8') as f:
-        f.write(final_content.strip() + "\n")
+    # FAIL-SAFE: We split at the last known 'safe' header.
+    # This prevents duplication because we discard EVERYTHING after this marker.
+    marker = "### 🔬 Current Research Focus"
+    
+    if marker in content:
+        # Keep everything up to and including the header
+        base_content = content.split(marker)[0] + marker
+        
+        # Re-add the static tip and the fresh table
+        tip = "\n\n> [!TIP] \n> Interested in the raw telemetry? Check the [/data](https://github.com/TrueSpecLab/telemetry-vault/tree/main/data) folder in the corresponding repository for the full .csv logs from these tests.\n\n"
+        
+        final_output = base_content + new_table_block + tip
+        
+        with open(README_PATH, 'w', encoding='utf-8') as f:
+            f.write(final_output.strip() + "\n")
+    else:
+        print(f"CRITICAL ERROR: Marker '{marker}' not found. README was not modified.")
 
 if __name__ == "__main__":
     update_readme()
