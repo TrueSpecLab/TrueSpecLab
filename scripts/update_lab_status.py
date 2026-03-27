@@ -95,22 +95,24 @@ def update_readme():
     with open(README_PATH, 'r', encoding='utf-8') as f:
         content = f.read()
 
-    # This Pattern finds the START tag, everything in between, and the END tag
+    # 1. CLEANUP: If there are multiple tables, collapse them into one set of tags first
+    # This regex finds the FIRST start tag and the LAST end tag and deletes everything between
+    # to prevent "recursive" duplication.
+    content = re.sub(r".*?", 
+                     "\n", 
+                     content, flags=re.DOTALL)
+
+    # 2. INJECT: Now perform a clean injection into the single remaining pair of tags
     pattern = r"()(.*?)()"
     
-    # Check if the tags exist using the pattern
     if re.search(pattern, content, re.DOTALL):
-        print("DEBUG: Found tags, injecting table...")
-        # Replacement string keeps the tags but swaps the content in between
         replacement = rf"\1\n{new_table}\n\3"
         final_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
         
         with open(README_PATH, 'w', encoding='utf-8') as f:
             f.write(final_content.strip() + "\n")
     else:
-        print("DEBUG ERROR: Could not find RESEARCH-TABLE tags in README.md")
-        # Let's print the first 100 chars of the README to see what's going on
-        print(f"DEBUG: README Start: {content[:100]}")
+        print("DEBUG: No tags found. Please reset README.md manually.")
 
 if __name__ == "__main__":
     update_readme()
