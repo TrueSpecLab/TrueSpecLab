@@ -94,12 +94,19 @@ def update_readme():
     with open(README_PATH, 'r', encoding='utf-8') as f:
         content = f.read()
 
-    before = content.split(START_TAG)[0]
-    after = content.split(END_TAG)[-1]
-    final_content = f"{before}{START_TAG}\n{new_table}\n{END_TAG}\n{after}"
-
-    with open(README_PATH, 'w', encoding='utf-8') as f:
-        f.write(final_content.strip() + "\n")
+    # THE SAFETY LATCH: Only update if BOTH tags are found
+    if START_TAG in content and END_TAG in content:
+        # split(...)[0] gets everything BEFORE the first start tag
+        before = content.split(START_TAG)[0] 
+        # split(...)[1] gets everything AFTER the first end tag
+        after = content.split(END_TAG)[1] 
+        
+        final_content = f"{before}{START_TAG}{new_table}\n{END_TAG}{after}"
+        
+        with open(README_PATH, 'w', encoding='utf-8') as f:
+            f.write(final_content.strip() + "\n")
+    else:
+        print("DEBUG ERROR: Tags missing! Aborting update to prevent duplicates.")
 
 if __name__ == "__main__":
     update_readme()
