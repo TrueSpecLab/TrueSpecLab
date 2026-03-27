@@ -15,6 +15,7 @@
 </a>
 <br>
 <!-- LATEST-VIDEO-BADGE:START --> <!-- LATEST-VIDEO-BADGE:END -->
+[![Data Archive](https://img.shields.io/badge/📂_Lab_Data-Archive-blue?style=for-the-badge)](./data)
 </div>
 
 ---
