@@ -30,7 +30,7 @@ _We provide rigorous, forensic product investigations BECAUSE the internet is fi
 | Project Category | Hardware Asset / Title | Status |
 | :--- | :--- | :--- |
 | **LATEST REPORT** | [LEGACY BUILDS: Can the ESP32-DevKitM-1 Handle 14 Channels?](https://www.youtube.com/shorts/SvMAriWq_dc) | `PUBLISHED` |
-| **IN TEST BENCH** | LEGACY BUILDS: Can the FireBeetle ESP32 actually generate 16 PWMs? | `TARGET: MAR 27` |
+| **IN TEST BENCH** | LEGACY BUILDS: ItsyBitsy M4 Express: 14 Channels in a 36mm Footprint? | `TARGET: APR 10` |
 <!-- RESEARCH-TABLE:END -->
 
 
