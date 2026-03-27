@@ -14,14 +14,14 @@
 </a>
 <br>
 <!-- LATEST-VIDEO-BADGE:START --> <!-- LATEST-VIDEO-BADGE:END -->
-<a href="/TrueSpecLab/TrueSpecLab/tree/main/data">
+<a href="https://github.com/TrueSpecLab/telemetry-vault/tree/main/data">
   <img src="https://img.shields.io/badge/Lab_Data-Archive-E06C1F?style=for-the-badge&logo=github&logoColor=white" alt="Lab Data Archive">
 </a>
 </div>
 
 ---
 
-_We provide rigorous, forensic product investigations BECAUSE the internet is filled with misleading noise that paralyzes the modern maker SO THAT our audience can stop second-guessing their gear and start mastering their craft._
+> We provide rigorous, forensic product investigations BECAUSE the internet is filled with misleading noise that paralyzes the modern maker SO THAT our audience can stop second-guessing their gear and start mastering their craft.
 
 > [!NOTE]
 > This repository serves as the open-source data vault for all our laboratory reports.
@@ -37,4 +37,4 @@ _We provide rigorous, forensic product investigations BECAUSE the internet is fi
 
 
 > [!TIP] 
-> Interested in the raw telemetry? Check the /data folder in the corresponding repository for the full .csv logs from these tests.
+> Interested in the raw telemetry? Check the [/data](https://github.com/TrueSpecLab/telemetry-vault/tree/main/data) folder in the corresponding repository for the full .csv logs from these tests.
