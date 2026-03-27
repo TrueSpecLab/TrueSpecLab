@@ -85,7 +85,7 @@ def update_readme():
     up_title, up_date = get_upcoming_video()
 
     new_table = (
-        f"\n| Project Category | Hardware Asset / Title | Status |\n"
+        f"\n| Research Area | Hardware / Device under Test | Status |\n"
         f"| :--- | :--- | :--- |\n"
         f"| **LATEST REPORT** | [{latest_title}]({latest_link}) | `PUBLISHED` |\n"
         f"| **IN TEST BENCH** | {up_title} | `TARGET: {up_date}` |\n"
