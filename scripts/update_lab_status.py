@@ -3,7 +3,6 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime
 import io
-import re
 
 # --- CONFIGURATION ---
 CHANNEL_ID = "UChy7QRfWL2mDN8seUqjD8tw" 
@@ -86,33 +85,34 @@ def update_readme():
     up_title, up_date = get_upcoming_video()
 
     new_table = (
+        f"\n"
         f"| Research Area | Hardware / Device under Test | Status |\n"
         f"| :--- | :--- | :--- |\n"
         f"| **LATEST REPORT** | [{latest_title}]({latest_link}) | `PUBLISHED` |\n"
         f"| **IN TEST BENCH** | {up_title} | `TARGET: {up_date}` |\n"
+        f""
     )
 
     with open(README_PATH, 'r', encoding='utf-8') as f:
         content = f.read()
 
-    # 1. CLEANUP: If there are multiple tables, collapse them into one set of tags first
-    # This regex finds the FIRST start tag and the LAST end tag and deletes everything between
-    # to prevent "recursive" duplication.
-    content = re.sub(r".*?", 
-                     "\n", 
-                     content, flags=re.DOTALL)
-
-    # 2. INJECT: Now perform a clean injection into the single remaining pair of tags
-    pattern = r"()(.*?)()"
+    # THE NUCLEAR OPTION: 
+    # Find the "Research Focus" header and delete EVERYTHING after it.
+    header_marker = "### 🔬 Current Research Focus"
     
-    if re.search(pattern, content, re.DOTALL):
-        replacement = rf"\1\n{new_table}\n\3"
-        final_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
+    if header_marker in content:
+        # Keep everything up to the tip/header
+        keep_part = content.split(header_marker)[0] + header_marker
+        
+        # Add the fixed tip and the fresh table
+        tip = "\n\n> [!TIP] \n> Interested in the raw telemetry? Check the [/data](https://github.com/TrueSpecLab/telemetry-vault/tree/main/data) folder in the corresponding repository for the full .csv logs from these tests.\n\n"
+        
+        final_content = keep_part + tip + new_table
         
         with open(README_PATH, 'w', encoding='utf-8') as f:
             f.write(final_content.strip() + "\n")
     else:
-        print("DEBUG: No tags found. Please reset README.md manually.")
+        print("DEBUG ERROR: Header marker not found. Script aborted to save file integrity.")
 
 if __name__ == "__main__":
     update_readme()
