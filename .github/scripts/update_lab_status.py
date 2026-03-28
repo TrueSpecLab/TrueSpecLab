@@ -5,7 +5,7 @@ from datetime import datetime
 import io
 
 # --- CONFIGURATION ---
-CHANNEL_ID = "UChy7QRfWL2mDN8seUqjD8tw" 
+CHANNEL_ID = "UChy7QRfWL2mDN8seUqjD8tw"
 CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTUahX8lrOmnF4JlJYKzuNVSnZZJAC8UoLhjKcmXRcy0MpRHbieAzLIAqoh9oEL1bgLYBVQuNVFsX1V/pub?gid=270845334&single=true&output=csv" 
 README_PATH = "README.md"
 
@@ -13,24 +13,40 @@ START_TAG = "".join(["<", "!", "--", " RESEARCH-TABLE:START ", "--", ">"])
 END_TAG = "".join(["<", "!", "--", " RESEARCH-TABLE:END ", "--", ">"])
 
 def get_latest_youtube_video():
+    # Use the hardcoded ID to be safe
+    url = f"https://www.youtube.com/feeds/videos.xml?channel_id={CHANNEL_ID}"
+    
+    # Expanded headers to mimic a real Chrome browser on Windows
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.5',
+        'Connection': 'keep-alive',
+    }
+    
     try:
-        url = f"https://www.youtube.com/feeds/videos.xml?channel_id={CHANNEL_ID}"
-        # Spoof a standard web browser to bypass YouTube's basic bot blocks
-        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'})
-        response = urllib.request.urlopen(req)
-        root = ET.fromstring(response.read())
-        ns = '{http://www.w3.org/2005/Atom}'
-        
-        # Extract the very first video entry
-        entry = root.find(f'{ns}entry')
-        if entry is not None:
-            title = entry.find(f'{ns}title').text
-            link = entry.find(f'{ns}link').attrib['href']
-            return title, link
+        req = urllib.request.Request(url, headers=headers)
+        with urllib.request.urlopen(req, timeout=10) as response:
+            xml_data = response.read()
+            root = ET.fromstring(xml_data)
+            
+            ns = '{http://www.w3.org/2005/Atom}'
+            # Look for the first entry (the most recent video)
+            entry = root.find(f'{ns}entry')
+            
+            if entry is not None:
+                title = entry.find(f'{ns}title').text
+                link = entry.find(f'{ns}link').attrib['href']
+                print(f"DEBUG: Successfully fetched: {title}")
+                return title, link
+                
+    except urllib.error.HTTPError as e:
+        print(f"DEBUG YouTube HTTP Error {e.code}: {e.reason}")
     except Exception as e:
-        print(f"DEBUG YouTube Error: {e}")
+        print(f"DEBUG YouTube General Error: {e}")
         
-    return "Latest Lab Report", "https://youtube.com/@truespeclab"
+    # FALLBACK: If the RSS feed fails, link to the videos page
+    return "Latest Lab Report", "https://www.youtube.com/@truespeclab/videos"
 
 def get_upcoming_video():
     today = datetime.now()
