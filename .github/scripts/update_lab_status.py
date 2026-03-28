@@ -15,15 +15,22 @@ END_TAG = "".join(["<", "!", "--", " RESEARCH-TABLE:END ", "--", ">"])
 def get_latest_youtube_video():
     try:
         url = f"https://www.youtube.com/feeds/videos.xml?channel_id={CHANNEL_ID}"
-        req = urllib.request.urlopen(url)
-        root = ET.fromstring(req.read())
+        # Spoof a standard web browser to bypass YouTube's basic bot blocks
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'})
+        response = urllib.request.urlopen(req)
+        root = ET.fromstring(response.read())
         ns = '{http://www.w3.org/2005/Atom}'
+        
+        # Extract the very first video entry
         entry = root.find(f'{ns}entry')
-        title = entry.find(f'{ns}title').text
-        link = entry.find(f'{ns}link').attrib['href']
-        return title, link
-    except:
-        return "Latest Lab Report", "https://youtube.com/@truespeclab"
+        if entry is not None:
+            title = entry.find(f'{ns}title').text
+            link = entry.find(f'{ns}link').attrib['href']
+            return title, link
+    except Exception as e:
+        print(f"DEBUG YouTube Error: {e}")
+        
+    return "Latest Lab Report", "https://youtube.com/@truespeclab"
 
 def get_upcoming_video():
     today = datetime.now()
