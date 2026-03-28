@@ -28,7 +28,7 @@
 ### 🔬 Current Research Focus
 | Research Area | Hardware / Device under Test | Status |
 | :--- | :--- | :--- |
-| **LATEST REPORT** | [LEGACY BUILDS: Can the ESP32-DevKitM-1 Handle 14 Channels?](https://www.youtube.com/shorts/SvMAriWq_dc) | `PUBLISHED` |
+| **LATEST REPORT** | [Latest Lab Report](https://youtube.com/@truespeclab) | `PUBLISHED` |
 | **IN TEST BENCH** | LEGACY BUILDS: ItsyBitsy M4 Express: 14 Channels in a 36mm Footprint? | `TARGET: APR 10` |
 
 
