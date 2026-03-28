@@ -26,11 +26,6 @@
 > This repository serves as the open-source data vault for all our laboratory reports.
 
 ### 🔬 Current Research Focus
-| Research Area | Hardware / Device under Test | Status |
-| :--- | :--- | :--- |
-| **LATEST REPORT** | [72-Hour Deep Freeze: Measuring The Voltage Sag Margin](https://www.youtube.com/watch?v=gjYDQ55KpUY) | `PUBLISHED` |
-| **IN TEST BENCH** | LEGACY BUILDS: ItsyBitsy M4 Express: 14 Channels in a 36mm Footprint? | `TARGET: APR 10` |
-
 
 > [!TIP] 
 > Interested in the raw telemetry? Check the [/data](https://github.com/TrueSpecLab/telemetry-vault/tree/main/data) folder in the corresponding repository for the full .csv logs from these tests.
