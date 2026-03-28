@@ -1,9 +1,7 @@
 import csv
 import urllib.request
-import xml.etree.ElementTree as ET
 from datetime import datetime
-import io
-import time
+import re
 
 # --- CONFIGURATION ---
 CHANNEL_ID = "UChy7QRfWL2mDN8seUqjD8tw" 
