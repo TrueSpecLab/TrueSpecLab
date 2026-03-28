@@ -33,4 +33,5 @@
 | Research Area | Hardware / Device under Test | Status |
 | :--- | :--- | :--- |
 | **LATEST REPORT** | [Latest Lab Report](https://youtube.com/@truespeclab) | `PUBLISHED` |
-| **IN TEST BENCH** |  | `TARGET: MAR 29` |
+| **IN TEST BENCH** | Calibration in Progress | `TARGET: TBD` |
+
