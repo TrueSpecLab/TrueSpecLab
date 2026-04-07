@@ -28,7 +28,7 @@
 ### 🔬 Current Research Focus
 | Research Area | Hardware / Device under Test | Status |
 | :--- | :--- | :--- |
-| **LATEST REPORT** | [72-Hour Deep Freeze: Measuring The Voltage Sag Margin](https://www.youtube.com/watch?v=gjYDQ55KpUY) | `PUBLISHED` |
+| **LATEST REPORT** | [Keyboard shortcuts](https://www.youtube.com/watch?v=gjYDQ55KpUY) | `PUBLISHED` |
 | **IN TEST BENCH** | LEGACY BUILDS: ItsyBitsy M4 Express: 14 Channels in a 36mm Footprint? | `TARGET: APR 10` |
 
 
