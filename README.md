@@ -29,7 +29,7 @@
 | Research Area | Hardware / Device under Test | Status |
 | :--- | :--- | :--- |
 | **LATEST REPORT** | [72-Hour Deep Freeze: Measuring The Voltage Sag Margin](https://www.youtube.com/watch?v=gjYDQ55KpUY) | `PUBLISHED` |
-| **IN TEST BENCH** | LEGACY BUILDS: ItsyBitsy M4 Express: 14 Channels in a 36mm Footprint? | `TARGET: APR 10` |
+| **IN TEST BENCH** | LEGACY BUILDS: Feather M4 Express with 16 PWM Outputs? | `TARGET: APR 24` |
 
 
 > [!TIP] 
