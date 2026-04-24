@@ -29,7 +29,7 @@
 | Research Area | Hardware / Device under Test | Status |
 | :--- | :--- | :--- |
 | **LATEST REPORT** | [72-Hour Deep Freeze: Measuring The Voltage Sag Margin](https://www.youtube.com/watch?v=gjYDQ55KpUY) | `PUBLISHED` |
-| **IN TEST BENCH** | LEGACY BUILDS: Feather M4 Express with 16 PWM Outputs? | `TARGET: APR 24` |
+| **IN TEST BENCH** | LEGACY BUILDS: 14 PWM Channels on the 53mm STM32F411 "BlackPill" | `TARGET: MAY 08` |
 
 
 > [!TIP] 
