@@ -28,7 +28,7 @@
 ### 🔬 Current Research Focus
 | Research Area | Hardware / Device under Test | Status |
 | :--- | :--- | :--- |
-| **LATEST REPORT** | [72-Hour Deep Freeze: Measuring The Voltage Sag Margin](https://www.youtube.com/watch?v=gjYDQ55KpUY) | `PUBLISHED` |
+| **LATEST REPORT** | [Keyboard shortcuts](https://www.youtube.com/watch?v=gjYDQ55KpUY) | `PUBLISHED` |
 | **IN TEST BENCH** | LEGACY BUILDS: 14 PWM Channels on the 53mm STM32F411 "BlackPill" | `TARGET: MAY 08` |
 
 
