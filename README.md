@@ -29,7 +29,7 @@
 | Research Area | Hardware / Device under Test | Status |
 | :--- | :--- | :--- |
 | **LATEST REPORT** | [Keyboard shortcuts](https://www.youtube.com/watch?v=gjYDQ55KpUY) | `PUBLISHED` |
-| **IN TEST BENCH** | LEGACY BUILDS: 14 PWM Channels on the STM32F103 "BluePill"? | `TARGET: MAY 22` |
+| **IN TEST BENCH** | LEGACY BUILDS: How Many PWM Channels Can This ESP32 REALLY Handle? | `TARGET: JUN 05` |
 
 
 > [!TIP] 
