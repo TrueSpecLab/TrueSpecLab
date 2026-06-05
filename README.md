@@ -29,7 +29,7 @@
 | Research Area | Hardware / Device under Test | Status |
 | :--- | :--- | :--- |
 | **LATEST REPORT** | [Keyboard shortcuts](https://www.youtube.com/watch?v=gjYDQ55KpUY) | `PUBLISHED` |
-| **IN TEST BENCH** | LEGACY BUILDS: How Many PWM Channels Can This ESP32 REALLY Handle? | `TARGET: JUN 05` |
+| **IN TEST BENCH** | LEGACY BUILDS: How Much Can The Teensy 4.0 Really DO? | `TARGET: JUN 19` |
 
 
 > [!TIP] 
