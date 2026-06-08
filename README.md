@@ -28,7 +28,7 @@
 ### 🔬 Current Research Focus
 | Research Area | Hardware / Device under Test | Status |
 | :--- | :--- | :--- |
-| **LATEST REPORT** | [Keyboard shortcuts](https://www.youtube.com/watch?v=PIeBb5XF4Ik) | `PUBLISHED` |
+| **LATEST REPORT** | [Keyboard shortcuts](https://www.youtube.com/watch?v=gjYDQ55KpUY) | `PUBLISHED` |
 | **IN TEST BENCH** | LEGACY BUILDS: How Much Can The Teensy 4.0 Really DO? | `TARGET: JUN 19` |
 
 
