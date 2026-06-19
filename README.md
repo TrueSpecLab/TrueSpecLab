@@ -29,7 +29,7 @@
 | Research Area | Hardware / Device under Test | Status |
 | :--- | :--- | :--- |
 | **LATEST REPORT** | [Keyboard shortcuts](https://www.youtube.com/watch?v=gjYDQ55KpUY) | `PUBLISHED` |
-| **IN TEST BENCH** | LEGACY BUILDS: How Much Can The Teensy 4.0 Really DO? | `TARGET: JUN 19` |
+| **IN TEST BENCH** | LEGACY BUILDS: 14 Independent LEDs on a 36mm Board? | `TARGET: JUL 03` |
 
 
 > [!TIP] 
