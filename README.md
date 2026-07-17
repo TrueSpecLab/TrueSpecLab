@@ -29,7 +29,7 @@
 | Research Area | Hardware / Device under Test | Status |
 | :--- | :--- | :--- |
 | **LATEST REPORT** | [Keyboard shortcuts](https://www.youtube.com/watch?v=gjYDQ55KpUY) | `PUBLISHED` |
-| **IN TEST BENCH** | LEGACY BUILDS: How This Small Board Delivers Professional Precision | `TARGET: JUL 17` |
+| **IN TEST BENCH** | System Telemetry | `TARGET: TBD` |
 
 
 > [!TIP] 
