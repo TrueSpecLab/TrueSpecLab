@@ -28,7 +28,7 @@
 ### 🔬 Current Research Focus
 | Research Area | Hardware / Device under Test | Status |
 | :--- | :--- | :--- |
-| **LATEST REPORT** | [Keyboard shortcuts](https://www.youtube.com/watch?v=MiZZptF-3Vg) | `PUBLISHED` |
+| **LATEST REPORT** | [Combinaciones de teclas](https://www.youtube.com/watch?v=MiZZptF-3Vg) | `PUBLISHED` |
 | **IN TEST BENCH** | System Telemetry | `TARGET: TBD` |
 
 
